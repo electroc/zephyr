@@ -27,24 +27,33 @@
 
 #include "cts.h"
 
+char *gg_name = "GG#0005";
+
 /* Custom Service Variables */
 #define BT_UUID_CUSTOM_SERVICE_VAL \
-	BT_UUID_128_ENCODE(0x12345678, 0x1234, 0x5678, 0x1234, 0x56789abcdef0)
+	BT_UUID_128_ENCODE(0x7f26da60, 0x86be, 0x11ec, 0x0001, 0x7777AAAA0020)
+	//BT_UUID_128_ENCODE(0x12345678, 0x1234, 0x5678, 0x1234, 0x56789abcdef0)
 
 static struct bt_uuid_128 vnd_uuid = BT_UUID_INIT_128(
+	
 	BT_UUID_CUSTOM_SERVICE_VAL);
 
 static struct bt_uuid_128 vnd_enc_uuid = BT_UUID_INIT_128(
-	BT_UUID_128_ENCODE(0x12345678, 0x1234, 0x5678, 0x1234, 0x56789abcdef1));
+	BT_UUID_128_ENCODE(0x7f26da60, 0x86be, 0x11ec, 0x0001, 0x7777AAAA0020));
 
 static struct bt_uuid_128 vnd_auth_uuid = BT_UUID_INIT_128(
-	BT_UUID_128_ENCODE(0x12345678, 0x1234, 0x5678, 0x1234, 0x56789abcdef2));
+	BT_UUID_128_ENCODE(0x7f26da60, 0x86be, 0x11ec, 0x0001, 0x7777AAAA0020));
 
 #define VND_MAX_LEN 20
 
-static uint8_t vnd_value[VND_MAX_LEN + 1] = { 'V', 'e', 'n', 'd', 'o', 'r'};
-static uint8_t vnd_auth_value[VND_MAX_LEN + 1] = { 'V', 'e', 'n', 'd', 'o', 'r'};
-static uint8_t vnd_wwr_value[VND_MAX_LEN + 1] = { 'V', 'e', 'n', 'd', 'o', 'r' };
+static uint8_t vnd_value[VND_MAX_LEN + 1] = { 'G', 'r', 'i', 'd', 'G', 'u', 'a', 'r', 'd' };
+static uint8_t vnd_auth_value[VND_MAX_LEN + 1] = { 'G', 'G', 'a', 'u'};
+static uint8_t vnd_wwr_value[VND_MAX_LEN + 1] = { 'G', 'G', 'w' };
+
+//static uint8_t vnd_value[VND_MAX_LEN + 1] = { 'V', 'e', 'n', 'd', 'o', 'r'};
+//static uint8_t vnd_auth_value[VND_MAX_LEN + 1] = { 'V', 'e', 'n', 'd', 'o', 'r'};
+//static uint8_t vnd_wwr_value[VND_MAX_LEN + 1] = { 'V', 'e', 'n', 'd', 'o', 'r' };
+
 
 static ssize_t read_vnd(struct bt_conn *conn, const struct bt_gatt_attr *attr,
 			void *buf, uint16_t len, uint16_t offset)
@@ -357,7 +366,7 @@ void main(void)
 		printk("Bluetooth init failed (err %d)\n", err);
 		return;
 	}
-	bt_set_name("GG");
+	bt_set_name(gg_name);
 	bt_ready();
 
 	bt_gatt_cb_register(&gatt_callbacks);
